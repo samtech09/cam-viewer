@@ -1,0 +1,34 @@
+{{define "aboutView"}}
+<!doctype html>
+<html lang="en">
+	<head>
+		{{template "includes"}}
+  </head>
+<body>
+
+    <main class="wrapper">
+        <nav class="navigation">
+            <section class="container">
+                <a class="navigation-title" href="/">
+                    <h1 class="title">About SAM's cam-viewer</h1>
+                </a>
+            </section>
+        </nav>
+
+        <section class="container" id="mainview">
+                <h4>Introduction</h4>
+
+                <p>cam-viewer is a basic interface to HTML5 Video. You need to create symlink of source video folder to <code>/static/videos</code>.
+                
+                <h4>Building and Installing</h4>
+                    
+                <p>After you've downloaded it, cd into the directory and compile it with <code>go build</code> and run it with <code>./cam-viewer</code>. Once it's running, go to <code>http://ip-of-RPi:8080</code> for the fun to begin.</p>
+                
+                <h4>License</h4>
+                
+                <p>cam-player is released under the MIT license, please refer to the LICENSE file for more information.</p>
+        </section>
+        <a href="#" onClick="javascript:window.close('','_parent','');">Close</a>
+</body>
+</html>
+{{end}}

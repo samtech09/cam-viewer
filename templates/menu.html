@@ -1,0 +1,151 @@
+{{define "menu"}}
+<!DOCTYPE html>
+<html>
+<head>
+    {{template "includes"}}
+    <link rel="stylesheet" href="../static/menu.css">
+
+    <link href="../static/jquery/jquery-ui.css" rel="stylesheet">  
+    <script src="../static/jquery/jquery-1.10.2.js"></script>  
+    <script src="../static/jquery/jquery-ui.js"></script>
+
+    <script>
+        $(function() {
+            $( "#slider-1" ).slider({
+                min: 0,  
+                max: 24,
+                range:true,
+                values: [8, 12],
+                slide: function( event, ui ) {  
+                    $( "#s1val" ).html("&nbsp;&nbsp;" + ui.values[0] + ":00 to " + ui.values[1] + ":00"); 
+                    $( "#timefrom" ).val(ui.values[0]);
+                    $( "#timeto" ).val(ui.values[1]); 
+                }  
+            });
+            $("#sliderdiv").hide();
+            $('#cball').click(function() {
+                if( $(this).is(':checked')) {
+                    $('input[name="cbfilter"]:checked').each(function() {     
+                        this.checked = false;                
+                    });
+                }
+            });
+
+            $('#chkusetime').click(function() {
+                if( $(this).is(':checked')) {
+                    $("#sliderdiv").show();
+                    $("#usetime").val(1);
+                } else {
+                    $("#sliderdiv").hide();
+                    $("#usetime").val(0);
+                }
+            });
+
+            // set yesterday date in filter
+            var today = new Date();
+            today.setDate(today.getDate()-1)
+            $("#custdt").val(today.toISOString().substring(0,10));
+        });
+
+        // function dosearch() {
+        //     v = document.getElementById('custdt').value + "";
+        //     if (v.length > 0) {
+        //         v = v.replace(/-/g, "");
+        //         //document.forms.dtsearch.action = "/main?d=" + v;
+        //         document.getElementById('d').value = v;
+        //         //$("#d").val(v);
+        //         document.forms.dtsearch.sumbit();
+        //         //alert(v);
+        //         return true;
+        //     }
+        //     return false;
+        // }
+
+        function dosearch() {
+            // get selected filter type
+            var sel = $('input[name=filter]:checked').val();
+            document.getElementById('d').value = sel;
+            
+            // get selected cam (context)
+            var cxts = $('.rectype:checked').map(function() {
+                return this.value;
+            }).get().join(',');
+            //alert(cxts);
+            document.getElementById('cxt').value = cxts;
+
+            if (sel == "bd") {  //filter by date
+                v = document.getElementById('custdt').value + "";
+                if (v.length > 0) {
+                    v = v.replace(/-/g, "");
+                    //document.forms.dtsearch.action = "/main?d=" + v;
+                    document.getElementById('d').value = v;
+                    //$("#d").val(v);
+                    document.forms.dtsearch.sumbit();
+                    return true;
+                }
+            } else {
+                document.forms.dtsearch.sumbit();
+                return true;
+            }
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <div id="titlediv">
+        <h1 class="title>">SAM's cam viewer</h1>
+    </div>
+
+    <div id="menudiv">
+        <div class="entry">Events / Recordings<br/>
+            <label for="cbmotion"><input type="checkbox" name="cbfilter" id="cbmotion" value="motionv" class="subentry rectype" checked> Events</label>
+            <label for="cbflawn"><input type="checkbox" name="cbfilter" id="cbflawn" value="flawn" class="subentry rectype"> Flawn</label>
+            <label for="cbporch"><input type="checkbox" name="cbfilter" id="cbporch" value="porch" class="subentry rectype"> Porch</label>
+            <label for="cbroofl"><input type="checkbox" name="cbfilter" id="cbroofl" value="roofl" class="subentry rectype"> Roof-Front</label>
+            <label for="cbroofr"><input type="checkbox" name="cbfilter" id="cbroofr" value="roofr" class="subentry rectype"> Roof-Back</label>
+            <label for="cball"><input type="checkbox" name="cbfilterall" id="cball" value="-" class="subentry rectype"> All Cams</label>
+        </div>
+        <div class="entry">Filter<br/>
+            <label for="rbtoday"><input type="radio" name="filter" id="rbtoday" value="d" class="subentry" checked> Today</label>
+            <label for="rbesterday"><input type="radio" name="filter" id="rbesterday" value="d1" class="subentry"> Yesterday</label>
+            <label for="rbdbfy"><input type="radio" name="filter" id="rbdbfy" value="d2" class="subentry"> Day Bef Yesterday</label>
+            <label for="rbp7d"><input type="radio" name="filter" id="rbp7d" value="w1" class="subentry"> Past 7 Days</label>
+            <label for="rbp15d"><input type="radio" name="filter" id="rbp15d" value="w2" class="subentry"> Past 15 Days</label>
+            <label for="rbp30d"><input type="radio" name="filter" id="rbp30d" value="m" class="subentry"> Past 30 Days</label>
+            <label for="rbp60d"><input type="radio" name="filter" id="rbp60d" value="m2" class="subentry"> Past 60 Days</label>
+            <label for="rbp90d"><input type="radio" name="filter" id="rbp90d" value="m3" class="subentry"> Past 90 Days</label>
+            <label for="rbbydt"><input type="radio" name="filter" id="rbbydt" value="bd" class="subentry"> By Date</label>
+
+            <input type="date" id="custdt" placeholder="Select Date" class="subentry"><br />
+            <label for="chkusetime">
+                <input type="checkbox" id="chkusetime" name="chkusetime" value="1" class="subentry"> Specific Time
+            </label>
+            <div id="sliderdiv">
+                <div class="subentry">
+                    <div id="slider-1" class="tslider"></div>
+                    <div id="s1val">&nbsp;&nbsp;8:00 to 12:00</div> 
+                </div>
+            </div>
+            <form name="dtsearch" id="dtsearch" style="padding-bottom:10px" action="/main" method="get" target="ifcontent">
+                <input type="hidden" name="d" id="d" value="">
+                <input type="hidden" name="cxt" id="cxt" value="motionv">
+                <input type="hidden" name="usetime" id="usetime" value="0">
+                <input type="hidden" name="timefrom" id="timefrom" value="8">
+                <input type="hidden" name="timeto" id="timeto" value="12">
+                <input type="submit" value="Filter" onclick="dosearch()" />
+            </form>
+        </div>
+    </div>
+
+    <div id="bottomdiv">
+        <form action="/main?d=d" method="post" target="ifcontent" style="margin-bottom: 2px; padding-bottom: 0px;">
+            <input type="submit" name="refresh" value="Refresh List" class="link" />
+        </form>
+        <a href="/cams" target="livecams" class="subentry">Live Cams</a><br />
+        <a href="/sys-stats" target="ifcontent" class="subentry">System Stats</a><br />
+        <a href="/about" target="ifcontent" class="subentry">About</a>
+    </div>
+
+</body>
+</html>
+{{end}}

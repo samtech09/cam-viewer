@@ -1,0 +1,30 @@
+{{define "similarTimeView"}}
+<!doctype html>
+<html lang="en">
+	<head>
+		{{template "includes"}}
+  </head>
+<body>
+
+    <!-- <main class="wrapper">
+        <section class="container" id="mainview">
+            <table id="omx-table"> -->
+                {{range $index, $file := .MovieList}}
+                <tr><td>
+                    <div class="video-thumbnail">
+                        <a class="fullwidth" target="_parent" href="/play?k={{.Key}}">
+                            <img src="{{.FullFilePath}}.jpg" alt='video' />
+                        </a>
+                        <div class="bottom-left">{{.FileName}}</div>
+                        <div class="bottom-right">{{.Category}}</div>
+                    </div>
+                {{end}}
+                <!-- </td></tr> -->
+                <span class="clear"></span>
+            <!-- </table>
+
+        </section>
+    </main> -->
+</body>
+</html>
+{{end}}

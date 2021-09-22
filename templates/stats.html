@@ -1,0 +1,61 @@
+{{define "sysStats"}}
+<!doctype html>
+<html lang="en">
+	<head>
+		{{template "includes"}}
+        <meta http-equiv="refresh" content="{{.RefreshInt}}" />
+        <style>
+            .box-blue {background-color: dodgerblue; color: #fff; padding: 12px !important; text-align: center;}
+            .box-green {background-color:darkgreen; color: #fff; padding: 12px !important; text-align: center;}
+            .box-grey {background-color:darkslateblue; color: #fff; padding: 12px !important; text-align: center;}
+            .box-royal {background-color:royalblue; color: #fff; padding: 12px !important;}
+        </style>
+  </head>
+<body>
+
+    <main class="wrapper">
+      
+        <section class="container">
+            <br />
+            <h2>System Stats</h2>
+            <div class="row">
+                <div class="column box-royal"><h3>CPU Usage</h3></div>
+                <div class="column box-royal"><h3>{{.Cpu}} %</h3></div>
+                <div class="column"><h3>&nbsp;</h3></div>
+                <div class="column"><h3>&nbsp;</h3></div>
+            </div>
+            <br /><br />
+
+            <h3>Memory</h3>
+            <div class="row">
+                <div class="column box-grey">Total {{.Mem.Total}}</div>
+                <div class="column box-green">Used {{.Mem.Used}}</div>
+                <div class="column box-blue">Free {{.Mem.Free}}</div>
+                <div class="column">&nbsp;</div>
+            </div>
+            <br /><br />
+
+            <h3>SWAP</h3>
+            <div class="row">
+                <div class="column box-grey">Total {{.Swap.Total}}</div>
+                <div class="column box-green">Used {{.Swap.Used}}</div>
+                <div class="column box-blue">Free {{.Swap.Free}}</div>
+                <div class="column">&nbsp;</div>
+            </div>
+            <br /><br />
+
+            <h3>Disk ({{.DiskPath}})</h3>
+            <div class="row">
+                <div class="column box-grey">Total {{.Disk.Total}}</div>
+                <div class="column box-green">Used {{.Disk.Used}}</div>
+                <div class="column box-blue">Free {{.Disk.Free}}</div>
+                <div class="column">&nbsp;</div>
+            </div>
+            <br />
+
+        </section>
+
+    </main>
+</body>
+</html>
+{{end}}

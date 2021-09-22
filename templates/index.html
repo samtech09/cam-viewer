@@ -1,0 +1,62 @@
+{{define "indexView"}}
+<!doctype html>
+<html lang="en">
+	<head>
+		{{template "includes"}}
+        <style>
+            @media screen and (min-width: 900px) {
+                #menu { width:18%; }
+                #pbody { width: 82%; }
+            }
+            @media screen and (min-width: 1199px) {
+                #menu { width:13%; }
+                #pbody { width: 87%; }
+            }
+            @media screen and (max-width: 899px) {
+                #menu { width:20%; }
+                #pbody { width: 80%; }
+            }
+            @media screen and (max-width: 500px) {
+                #menu { width:100%; }
+                #pbody { width: 100%; }
+            }
+        </style>
+  </head>
+<body>
+
+    <main class="wrapper">
+        <!-- <nav class="navigation">
+            <section class="container">
+                <a class="navigation-title" href="/">
+                    <h1 class="title">SAM's cam-viewer</h1>
+                </a>
+                <ul class="navigation-list float-right">
+                    <li class="navigation-item">
+                        <form style="padding-bottom:10px" align="left" action = "/main?d=d" method = "post" target="ifcontent">
+                            <input type="submit" name="refresh" value="Refresh List" style="height: 3.3rem;" />
+                        </form>
+                    </li>
+                    <li class="navigation-item">
+                        <a class="navigation-link" target="camsview" href="/cams">Cams</a>
+                    </li>
+                    <li class="navigation-item">
+                        <a class="navigation-link" href="/about">About</a>
+                    </li>
+                </ul>
+            </section>
+        </nav> -->
+
+        <section class="indexcontainer">
+        <div id="menu" class="full-height float-left">
+            <iframe src="/menu" width="100%" height="100%" style="border:1px solid black;">
+            </iframe>
+        </div>
+        <div id="pbody" class="full-height float-left">
+            <iframe name="ifcontent" src="/main?context={{.CurrentContext}}" width="100%" height="100%" style="border:1px solid black;">
+            </iframe>
+        </div>
+        </section>
+    </main>
+</body>
+</html>
+{{end}}

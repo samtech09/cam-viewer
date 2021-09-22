@@ -1,0 +1,43 @@
+{{define "base"}}
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="A Basic">
+		<meta name="description" content="media-player in local video player for browser">
+		<title>go-player</title>
+    		<link rel="stylesheet" href="../static/normalize.css">
+		<link rel="stylesheet" href="../static/milligram.css">
+		<link rel="stylesheet" href="../static/main.css">
+  </head>
+	<body>
+
+		<main class="wrapper">
+
+			<nav class="navigation">
+				<section class="container">
+					<a class="navigation-title" href="/">
+						<h1 class="title">media-player</h1>
+					</a>
+					<ul class="navigation-list float-right">
+						<li class="navigation-item">
+							<a class="navigation-link" href="/about">About</a>
+						</li>
+						<li class="navigation-item">
+							<a class="navigation-link" href="/setup">Setup</a>
+						</li>
+						<li class="navigation-item">
+							<a class="navigation-link" href="/playmode">Playmode</a>
+						</li>
+					</ul>
+				</section>
+			</nav>
+
+			<section class="container" id="mainview">
+	        {{block "content" .}}{{end}}
+			</section>
+		</main>
+	</body>
+</html>
+{{end}}

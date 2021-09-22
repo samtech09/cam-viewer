@@ -1,0 +1,5 @@
+{
+    "DefaultCam": "motionv",
+    "StatsDiskPath":"/mnt/extra",
+    "StatsRefreshInterval": 10
+}

@@ -1,0 +1,58 @@
+{{define "camView"}}
+<!DOCTYPE html>
+<html>
+<head>
+    {{template "includes"}}
+    <link href="../static/jquery/jquery-ui.css" rel="stylesheet">  
+    <script src="../static/jquery/jquery-1.10.2.js"></script>  
+    <script src="../static/jquery/jquery-ui.js"></script>
+    <script>  
+        $(function() {  
+            $( "#slider-1" ).slider({  
+                min: 20,  
+                max: 100,  
+                value: 33,  
+                slide: function( event, ui ) {  
+                    $( "#gval" ).html("&nbsp;&nbsp;" + ui.value + "%"); 
+                    $('.cam').css("width", ui.value + "%");
+                }  
+            });
+        });
+    </script>
+    <style>
+    body {background-color: #333; color:#fff; font-size: 1.4em;}
+    .cam {
+        width: 33%;
+        height: auto;
+        border: none;
+    }
+    #sliderdiv {
+        float:right;
+        width: 280px;
+    }
+    #slider-1 {
+        width: 150px;
+        padding-bottom: 4px;
+    }
+    </style>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<body>
+    
+    <div class="div-centered" style="width: 99%;">
+        <div id="sliderdiv">
+            <div class="float-left">Grid Size  &nbsp;&nbsp;&nbsp; </div>
+            <div id="slider-1" class="float-left"></div>
+            <div id="gval" class="float-left">&nbsp;&nbsp;33%</div> 
+        </div>
+     
+	<b>Chakshu (चक्षु) 0.1 Running</b>&nbsp;&nbsp; <a href="#" style="font-size: 0.8em;" onClick="javascript:window.close('','_parent','');">Close</a> <br>
+	<a href="http://samcam:8091" target="_self"> <img src="http://samcam:8091/substream" class="cam"></a>
+	<a href="http://samcam:8092" target="_self"> <img src="http://samcam:8092/substream" class="cam"></a>
+	<a href="http://samcam:8093" target="_self"> <img src="http://samcam:8093/substream" class="cam"></a>
+	<a href="http://samcam:8094" target="_self"> <img src="http://samcam:8094/substream" class="cam"></a>
+    </div>
+
+</body>
+</html>
+{{end}}
